@@ -3,11 +3,14 @@ import api from '../utils/api';
 import Card from './Card';
 
 class Main extends React.Component {
-  state = {
-    userName: '',
-    userDescription: '',
-    userAvatar: '',
-    cards: [],
+  constructor(props) {
+    super(props)
+    this.state = {
+      userName: '',
+      userDescription: '',
+      userAvatar: '',
+      cards: [],
+    }
   }
 
   componentDidMount() {

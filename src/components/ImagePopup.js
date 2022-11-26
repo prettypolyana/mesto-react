@@ -28,8 +28,8 @@ import React from 'react';
       <div className={`popup popup_view_show-image ${card ? 'popup_opened' : ''}`} onClick={handlePopupOverlayClick}>
           <div className="popup__container popup__container_image">
               <button className="popup__close popup__close-image" type="button"></button>
-              <img className="popup__image" src={card ? card.link : ''} alt={card ? card.name : ''}/>
-              <div className="popup__desc">{card ? card.name : ''}</div>
+              <img className="popup__image" src={card?.link} alt={card?.name}/>
+              <div className="popup__desc">{card?.name}</div>
           </div>
       </div>
     );

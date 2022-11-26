@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PopupWithForm({name, title, isOpen, onClose, children}) {
+function PopupWithForm({name, title, btnText, children, isOpen, onClose}) {
     React.useEffect(() => {
         function handleEscClose(event) {
             if (event.key === 'Escape') {
@@ -30,7 +30,7 @@ function PopupWithForm({name, title, isOpen, onClose, children}) {
                 <form className="popup__content popup__content-profile" noValidate name="edit-profile">
                     <h2 className="popup__title">{title}</h2>
                     {children}
-                    <button className="popup__btn" type="submit">Сохранить</button>
+                    <button className="popup__btn" type="submit">{btnText}</button>
                 </form>
             </div>
         </div>
