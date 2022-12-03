@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PopupWithForm({name, title, btnText, children, isOpen, onClose}) {
+function PopupWithForm({name, title, btnText, children, isOpen, onClose, onSubmit}) {
     React.useEffect(() => {
         function handleEscClose(event) {
             if (event.key === 'Escape') {
@@ -27,7 +27,7 @@ function PopupWithForm({name, title, btnText, children, isOpen, onClose}) {
         <div className={`popup popup_view_${name} ${isOpen ? 'popup_opened' : ''}`} onClick={handlePopupOverlayClick}>
             <div className="popup__container">
                 <button className="popup__close popup__close-profile" type="button" onClick={onClose}></button>
-                <form className="popup__content popup__content-profile" noValidate name="edit-profile">
+                <form className="popup__content popup__content-profile" noValidate name="edit-profile" onSubmit={onSubmit}>
                     <h2 className="popup__title">{title}</h2>
                     {children}
                     <button className="popup__btn" type="submit">{btnText}</button>

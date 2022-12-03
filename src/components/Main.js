@@ -1,32 +1,9 @@
 import React from 'react';
-import api from '../utils/api';
 import Card from './Card';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      userName: '',
-      userDescription: '',
-      userAvatar: '',
-      cards: [],
-    }
-  }
-
-  componentDidMount() {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userData, cardsData]) => {
-          this.setState({
-            userName: userData.name,
-            userDescription: userData.about,
-            userAvatar: userData.avatar,
-            cards: cardsData,
-          });
-      })
-      .catch((err) => {
-          console.log(err);
-      });
-  }
+  static contextType = CurrentUserContext;
 
   render() {
     return (
@@ -34,22 +11,22 @@ class Main extends React.Component {
           <section className="profile">
               <div className="profile__person">
                   <div className="profile__overlay" onClick={this.props.onEditAvatar}>
-                      <img className="profile__avatar" alt="Фото профиля" src={this.state.userAvatar}/>
+                      <img className="profile__avatar" alt="Фото профиля" src={this?.context?.avatar}/>
                   </div>
                   <div className="profile__info">
                       <div className="profile__title">
-                          <h1 className="profile__name">{this.state.userName}</h1>
+                          <h1 className="profile__name">{this?.context?.name}</h1>
                           <button className="profile__btn" type="button" onClick={this.props.onEditProfile}></button>
                       </div>
-                      <p className="profile__subtitle">{this.state.userDescription}</p>
+                      <p className="profile__subtitle">{this?.context?.about}</p>
                   </div>
               </div>
               <button className="profile__btn-plus" type="button" onClick={this.props.onAddPlace}></button>
           </section>
           <section className="elements content__elements">
               <ul className="elements__list">
-                {this.state.cards.map((card) => (
-                    <Card card={card} onCardClick={this.props.onCardClick} key={card._id}/>
+                {this.props.cards.map((card) => (
+                    <Card card={card} onCardClick={this.props.onCardClick} key={card._id} onCardLike={this.props.onCardLike} onCardDelete={this.props.onCardDelete}/>
                 ))}
               </ul>
           </section>
