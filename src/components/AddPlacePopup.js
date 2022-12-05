@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import PopupWithForm from './PopupWithForm';
 
 export default function AddPlacePopup({isOpen, onClose, onAddPlace}) {
-    const nameRef = React.useRef();
-    const linkRef = React.useRef();
+    const nameRef = useRef();
+    const linkRef = useRef();
 
-    React.useEffect(() => {
+    useEffect(() => {
         nameRef.current.value = '';
         linkRef.current.value = '';
     }, [isOpen]);

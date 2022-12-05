@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
   function ImagePopup({card, onClose}) {
 
-    React.useEffect(() => {
+    useEffect(() => {
         function handleEscClose(event) {
             if (event.key === 'Escape') {
                 onClose();

@@ -72,6 +72,9 @@ class App extends React.Component {
           this.setState({
             cards: newCards,
           })
+        })
+        .catch((err) => {
+            console.log(err);
         });
     } else {
       api.addLike(card._id)
@@ -80,6 +83,9 @@ class App extends React.Component {
           this.setState({
             cards: newCards,
           })
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   }
@@ -91,6 +97,9 @@ class App extends React.Component {
         this.setState({
           cards: newCards,
         })
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -101,6 +110,9 @@ class App extends React.Component {
           currentUser: userData,
         });
         this.closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -111,6 +123,9 @@ class App extends React.Component {
           currentUser: userData,
         });
         this.closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -121,6 +136,9 @@ class App extends React.Component {
           cards: [newCard, ...this.state.cards],
         });
         this.closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 function PopupWithForm({name, title, btnText, children, isOpen, onClose, onSubmit}) {
-    React.useEffect(() => {
+    useEffect(() => {
         function handleEscClose(event) {
             if (event.key === 'Escape') {
                 onClose();
