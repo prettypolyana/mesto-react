@@ -1,4 +1,5 @@
 import React from 'react';
+import {Route, Switch} from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
@@ -7,6 +8,9 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
+import ProtectedRoute from './ProtectedRoute';
+import Login from './Login';
+import Register from './Register';
 import api from '../utils/api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
@@ -14,6 +18,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      loggedIn: false,
       isEditProfilePopupOpen: false,
       isAddPlacePopupOpen: false,
       isEditAvatarPopupOpen: false,
@@ -147,13 +152,33 @@ class App extends React.Component {
       <div className="page">
         <CurrentUserContext.Provider value={this.state.currentUser}>
           <Header />
-            <Main onEditAvatar={this.handleEditAvatarClick} onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} cards={this.state.cards} onCardClick={this.handleCardClick} onCardLike={this.handleCardLike} onCardDelete={this.handleCardDelete}/>
-            <Footer />
-            <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} onUpdateUser={this.handleUpdateUser}/>
-            <AddPlacePopup isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups} onAddPlace={this.handleAddPlaceSubmit}/>
-            <PopupWithForm name="delete-question" title="Вы уверены?" btnText="Да"/>
-            <EditAvatarPopup isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups} onUpdateAvatar={this.handleUpdateAvatar}/>
-            <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups}/>
+          <Switch>
+            <ProtectedRoute
+              exact
+              path="/"
+              loggedIn={this.state.loggedIn}
+              component={Main}
+              onEditAvatar={this.handleEditAvatarClick}
+              onEditProfile={this.handleEditProfileClick}
+              onAddPlace={this.handleAddPlaceClick}
+              cards={this.state.cards}
+              onCardClick={this.handleCardClick}
+              onCardLike={this.handleCardLike}
+              onCardDelete={this.handleCardDelete}
+            />
+            <Route path="/sign-in">
+              <Login />
+            </Route>
+            <Route path="/sign-up">
+              <Register />
+            </Route>
+          </Switch>
+          <Footer />
+          <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} onUpdateUser={this.handleUpdateUser}/>
+          <AddPlacePopup isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups} onAddPlace={this.handleAddPlaceSubmit}/>
+          <PopupWithForm name="delete-question" title="Вы уверены?" btnText="Да"/>
+          <EditAvatarPopup isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups} onUpdateAvatar={this.handleUpdateAvatar}/>
+          <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups}/>
         </CurrentUserContext.Provider>
       </div>
     );

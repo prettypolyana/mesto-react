@@ -27,7 +27,7 @@ function PopupWithForm({name, title, btnText, children, isOpen, onClose, onSubmi
         <div className={`popup popup_view_${name} ${isOpen ? 'popup_opened' : ''}`} onClick={handlePopupOverlayClick}>
             <div className="popup__container">
                 <button className="popup__close popup__close-profile" type="button" onClick={onClose}></button>
-                <form className="popup__content popup__content-profile" noValidate name="edit-profile" onSubmit={onSubmit}>
+                <form className="popup__content popup__content-profile" noValidate name={name} onSubmit={onSubmit}>
                     <h2 className="popup__title">{title}</h2>
                     {children}
                     <button className="popup__btn" type="submit">{btnText}</button>
